@@ -16,6 +16,7 @@
 		4AABBA6E1CCDDCAD0004C0BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AABBA6C1CCDDCAD0004C0BF /* LaunchScreen.storyboard */; };
 		4AABBA791CCDDCAD0004C0BF /* XpongTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AABBA781CCDDCAD0004C0BF /* XpongTests.swift */; };
 		4AABBA841CCDDCAD0004C0BF /* XpongUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AABBA831CCDDCAD0004C0BF /* XpongUITests.swift */; };
+		4AAE05211D2EF2E00012DC4B /* ballExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4AAE05201D2EF2DF0012DC4B /* ballExplosion.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		4AABBA7F1CCDDCAD0004C0BF /* XpongUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XpongUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AABBA831CCDDCAD0004C0BF /* XpongUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XpongUITests.swift; sourceTree = "<group>"; };
 		4AABBA851CCDDCAD0004C0BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AAE05201D2EF2DF0012DC4B /* ballExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ballExplosion.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				4AABBA611CCDDCAD0004C0BF /* GameScene.sks */,
 				4AABBA631CCDDCAD0004C0BF /* GameScene.swift */,
 				4AABBA651CCDDCAD0004C0BF /* GameViewController.swift */,
+				4AAE05201D2EF2DF0012DC4B /* ballExplosion.sks */,
 				4AABBA671CCDDCAD0004C0BF /* Main.storyboard */,
 				4AABBA6A1CCDDCAD0004C0BF /* Assets.xcassets */,
 				4AABBA6C1CCDDCAD0004C0BF /* LaunchScreen.storyboard */,
@@ -199,6 +202,7 @@
 				TargetAttributes = {
 					4AABBA5B1CCDDCAD0004C0BF = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 289SSXP96T;
 					};
 					4AABBA731CCDDCAD0004C0BF = {
 						CreatedOnToolsVersion = 7.3;
@@ -239,6 +243,7 @@
 				4AABBA6E1CCDDCAD0004C0BF /* LaunchScreen.storyboard in Resources */,
 				4AABBA6B1CCDDCAD0004C0BF /* Assets.xcassets in Resources */,
 				4AABBA691CCDDCAD0004C0BF /* Main.storyboard in Resources */,
+				4AAE05211D2EF2E00012DC4B /* ballExplosion.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,10 +414,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Xpong/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GarbageGames.Xpong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -420,10 +430,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Xpong/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GarbageGames.Xpong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -494,6 +509,7 @@
 				4AABBA8A1CCDDCAD0004C0BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4AABBA8B1CCDDCAD0004C0BF /* Build configuration list for PBXNativeTarget "XpongTests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +518,7 @@
 				4AABBA8D1CCDDCAD0004C0BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4AABBA8E1CCDDCAD0004C0BF /* Build configuration list for PBXNativeTarget "XpongUITests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +527,7 @@
 				4AABBA901CCDDCAD0004C0BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
