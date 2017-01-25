@@ -62,17 +62,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let Paddle2Category : UInt32 = 0x1 << 2
     let TopCategory : UInt32 = 0x1 << 5
 
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         //cage the ball
-        super.didMoveToView(view)
-        let borderBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
+        super.didMove(to: view)
+        let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         borderBody.friction = 0
         self.physicsBody = borderBody
-        physicsWorld.gravity = CGVectorMake(0,0)
+        physicsWorld.gravity = CGVector(dx: 0,dy: 0)
         
         physicsWorld.contactDelegate = self
-        
-        
+    
         //load background
         
         background.size = self.size
@@ -91,7 +90,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player1.physicsBody!.restitution = 0
         player1.physicsBody!.linearDamping = 0
         player1.physicsBody!.angularDamping = 0
-        player1.physicsBody!.dynamic = false
+        player1.physicsBody!.isDynamic = false
         player1.physicsBody?.usesPreciseCollisionDetection = true
         player1.physicsBody?.categoryBitMask = Paddle1Category
         player1.physicsBody?.collisionBitMask = Paddle1Category | BallCategory
@@ -107,7 +106,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player2.physicsBody!.restitution = 0
         player2.physicsBody!.linearDamping = 0
         player2.physicsBody!.angularDamping = 0
-        player2.physicsBody!.dynamic = false
+        player2.physicsBody!.isDynamic = false
         player2.physicsBody?.usesPreciseCollisionDetection = true
         player2.physicsBody?.categoryBitMask = Paddle2Category
         player2.physicsBody?.collisionBitMask = Paddle2Category | BallCategory
@@ -135,7 +134,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         goal1.position = CGPoint(x: self.size.width/2, y: (self.size.height * 0.0) + 21)
         goal1.zPosition = 0
         goal1.physicsBody = SKPhysicsBody(texture: goal1.texture!, size: goal1.size)
-        goal1.physicsBody!.dynamic = false
+        goal1.physicsBody!.isDynamic = false
         goal1.physicsBody?.usesPreciseCollisionDetection = true
         goal1.physicsBody?.categoryBitMask = BottomCategory
         goal1.physicsBody?.collisionBitMask = BottomCategory | BallCategory
@@ -146,7 +145,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         goal2.position = CGPoint(x: self.size.width/2, y: self.size.height - 22)
         goal2.zPosition = 0
         goal2.physicsBody = SKPhysicsBody(texture: goal2.texture!, size: goal2.size)
-        goal2.physicsBody!.dynamic = false
+        goal2.physicsBody!.isDynamic = false
         goal2.physicsBody?.usesPreciseCollisionDetection = true
         goal2.physicsBody?.categoryBitMask = TopCategory
         goal2.physicsBody?.collisionBitMask = TopCategory | BallCategory
@@ -157,14 +156,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         border1.position = CGPoint(x: self.size.width/2, y: (self.size.height * 0.0) + 31)
         border1.zPosition = -1
         border1.physicsBody = SKPhysicsBody(texture: border1.texture!, size: border1.size)
-        border1.physicsBody!.dynamic = false
+        border1.physicsBody!.isDynamic = false
         self.addChild(border1)
         
         border2.setScale(1)
         border2.position = CGPoint(x: self.size.width/2, y: (self.size.height) - 31)
         border2.zPosition = -1
         border2.physicsBody = SKPhysicsBody(texture: border2.texture!, size: border2.size)
-        border2.physicsBody!.dynamic = false
+        border2.physicsBody!.isDynamic = false
         self.addChild(border2)
         
         
@@ -188,38 +187,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody!.restitution = 1
         ball.physicsBody!.linearDamping = 0
         ball.physicsBody!.angularDamping = 0
-        ball.physicsBody!.dynamic = true
+        ball.physicsBody!.isDynamic = true
         //ball.physicsBody?.veloci
         ball.physicsBody?.usesPreciseCollisionDetection = true
         ball.physicsBody?.categoryBitMask = BallCategory
         self.addChild(ball)
-        ball.physicsBody!.applyImpulse(CGVectorMake( 20, -100 * randomNegative))
-        
+        ball.physicsBody!.applyImpulse(CGVector( dx: 20, dy: -100 * randomNegative))
+
         //load buttons
 
         pauseButton.setScale(0.5)
         pauseButton.position = CGPoint(x: self.size.width/2 - 5, y: size.self.height/2)
         pauseButton.zPosition = 3
-        pauseButton.hidden = true
+        pauseButton.isHidden = true
         self.addChild(pauseButton)
         
         playButton.setScale(0.7)
         playButton.position = CGPoint(x: (self.size.width/2) - 5, y: size.self.height/2)
         playButton.zPosition = 3
-        playButton.hidden = false
+        playButton.isHidden = false
         
         self.addChild(playButton)
         
         exitButton.setScale(1)
         exitButton.position = CGPoint(x: (self.size.width/2) - 300, y: size.self.height/2)
         exitButton.zPosition = 3
-        exitButton.hidden = true
+        exitButton.isHidden = true
         self.addChild(exitButton)
         
         resetButton.setScale(1.5)
         resetButton.position = CGPoint(x: (self.size.width/2) + 290, y: size.self.height/2)
         resetButton.zPosition = 3
-        resetButton.hidden = true
+        resetButton.isHidden = true
         self.addChild(resetButton)
         
         
@@ -252,14 +251,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player1WinsLabel.setScale(-3)
         player1WinsLabel.text = "YOU LOSE!!!"
         player1WinsLabel.position = CGPoint(x: (self.size.width/2), y: size.self.height * 0.7)
-        player1WinsLabel.hidden = true
+        player1WinsLabel.isHidden = true
         addChild(player1WinsLabel)
         
         player2WinsLabel = SKLabelNode(fontNamed: "Copperplate")
         player2WinsLabel.setScale(-3)
         player2WinsLabel.text = "YOU WIN!!!"
         player2WinsLabel.position = CGPoint(x: (self.size.width/2), y: size.self.height * 0.7)
-        player2WinsLabel.hidden = true
+        player2WinsLabel.isHidden = true
         addChild(player2WinsLabel)
         
         
@@ -267,7 +266,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player1WinsLabel2.setScale(3)
         player1WinsLabel2.text = "YOU WIN!!!"
         player1WinsLabel2.position = CGPoint(x: (self.size.width/2), y: size.self.height * 0.3)
-        player1WinsLabel2.hidden = true
+        player1WinsLabel2.isHidden = true
         addChild(player1WinsLabel2)
         
         
@@ -275,7 +274,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player2WinsLabel2.setScale(3)
         player2WinsLabel2.text = "YOU LOSE!!!"
         player2WinsLabel2.position = CGPoint(x: (self.size.width/2), y: size.self.height * 0.3)
-        player2WinsLabel2.hidden = true
+        player2WinsLabel2.isHidden = true
         addChild(player2WinsLabel2)
         
         //ready buttons
@@ -283,53 +282,51 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         readyButton1.setScale(1)
         readyButton1.position = CGPoint(x: (self.size.width/2), y: size.self.height * 0.2)
         readyButton1.zPosition = 3
-        readyButton1.hidden = true
+        readyButton1.isHidden = true
         self.addChild(readyButton1)
         
         readyButton2.setScale(-1)
         readyButton2.position = CGPoint(x: (self.size.width/2), y: size.self.height * 0.8)
         readyButton2.zPosition = 3
-        readyButton2.hidden = true
+        readyButton2.isHidden = true
         self.addChild(readyButton2)
 
-        paused = true
+        isPaused = true
     }
 
     
-    override func touchesBegan(touches:Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesBegan(_ touches:Set<UITouch>, with event: UIEvent?){
         //start of touch point of first touch for bars
         
         if let touch = touches.first{
-            let location = touch.locationInNode(self)
-            if player1SwipeBox.containsPoint(location){
+            let location = touch.location(in: self)
+            if player1SwipeBox.contains(location){
                 player1.position = CGPoint(x: location.x, y: frame.height * 0.05)
                 player1SwipeBox.position = (CGPoint(x: location.x, y: frame.height * 0.05))
-                player1.runAction(swipeHit)
+                //player1.runAction(swipeHit)
 
             }
-            else if player2SwipeBox.containsPoint(location){
+            else if player2SwipeBox.contains(location){
                 player2.position = CGPoint(x: location.x, y: frame.height * 0.95)
                 player2SwipeBox.position = CGPoint(x: location.x, y: frame.height * 0.95)
-                player2.runAction(swipeHit)
+                //player2.runAction(swipeHit)
 
             }
         }
-        
-        
 
     }
-    override func touchesMoved(touches:Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesMoved(_ touches:Set<UITouch>, with event: UIEvent?){
         //during touch reset location of bars
         for touch in touches{
-            let location = touch.locationInNode(self)
+            let location = touch.location(in: self)
     
-            if player1SwipeBox.containsPoint(location){
+            if player1SwipeBox.contains(location){
                 player1.position = CGPoint(x: location.x, y: frame.height * 0.05)
                 player1SwipeBox.position = (CGPoint(x: location.x, y: frame.height * 0.05))
                 //player1HitBox.position = (CGPoint(x: location.x, y: frame.height * 0.05))
 
             }
-            else if player2SwipeBox.containsPoint(location){
+            else if player2SwipeBox.contains(location){
                 
                 player2.position = CGPoint(x: location.x, y: frame.height * 0.95)
                 player2SwipeBox.position = CGPoint(x: location.x, y: frame.height * 0.95)
@@ -337,113 +334,113 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
         
         //when touch has ended
     }
 
-    func tap(sender:UITapGestureRecognizer){
+    func tap(_ sender:UITapGestureRecognizer){
         
         
-        var tapLocation: CGPoint = sender.locationInView(sender.view)
-        tapLocation = self.convertPointFromView(tapLocation)
+        var tapLocation: CGPoint = sender.location(in: sender.view)
+        tapLocation = self.convertPoint(fromView: tapLocation)
  
   
         //pause button tap
 
-        if playButton.hidden == false && playButton.containsPoint(tapLocation) {
+        if playButton.isHidden == false && playButton.contains(tapLocation) {
             
-            paused = false
-            pauseButton.hidden = false
-            playButton.hidden = true
-            resetButton.hidden = true
-            exitButton.hidden = true
+            isPaused = false
+            pauseButton.isHidden = false
+            playButton.isHidden = true
+            resetButton.isHidden = true
+            exitButton.isHidden = true
 
             print("Play")
         }
         
-        if  pauseButton.hidden == false && pauseButton.containsPoint(tapLocation) && playButton.containsPoint(tapLocation) {
-            paused = true
-            pauseButton.hidden = true
-            playButton.hidden = false
-            resetButton.hidden = false
-            exitButton.hidden = false
+        if  pauseButton.isHidden == false && pauseButton.contains(tapLocation) && playButton.contains(tapLocation) {
+            isPaused = true
+            pauseButton.isHidden = true
+            playButton.isHidden = false
+            resetButton.isHidden = false
+            exitButton.isHidden = false
             
             print("PAWS")
         }
         
-        if exitButton.containsPoint(tapLocation) && exitButton.hidden == false {
+        if exitButton.contains(tapLocation) && exitButton.isHidden == false {
             print("exit")
             exit(0)
             
         }
         
-        if readyButton1.containsPoint(tapLocation) && readyButton1.hidden == false {
+        if readyButton1.contains(tapLocation) && readyButton1.isHidden == false {
             
-            pauseButton.hidden = true
-            playButton.hidden = true
-            resetButton.hidden = true
+            pauseButton.isHidden = true
+            playButton.isHidden = true
+            resetButton.isHidden = true
             print("Ready1")
         }
         
-        if readyButton2.containsPoint(tapLocation) && readyButton2.hidden == false {
+        if readyButton2.contains(tapLocation) && readyButton2.isHidden == false {
             
-            pauseButton.hidden = true
-            playButton.hidden = true
-            resetButton.hidden = true
+            pauseButton.isHidden = true
+            playButton.isHidden = true
+            resetButton.isHidden = true
             print("Ready2")
         }
         
-        if resetButton.containsPoint(tapLocation) && resetButton.hidden == false {
+        if resetButton.contains(tapLocation) && resetButton.isHidden == false {
             self.removeAllChildren()
             let gameScene = GameScene(size: self.size)
-            let transition = SKTransition.doorsCloseVerticalWithDuration(0.5)
-            gameScene.scaleMode = SKSceneScaleMode.AspectFill
+            let transition = SKTransition.doorsCloseVertical(withDuration: 0.5)
+            gameScene.scaleMode = SKSceneScaleMode.aspectFit
             self.scene!.view?.presentScene(gameScene, transition: transition)
             //playButton.hidden = false
             player1score = 0
             player2score = 0
-            paused = true
+            isPaused = true
         }
         
         
-        if player1SwipeBox.containsPoint(tapLocation) {
+        if player1SwipeBox.contains(tapLocation) {
             print("POW")
             driveHit1 = true
-            let pullBack = SKAction.moveToY(((frame.height * 0.05) - 70), duration: 0.1)
-            let springForward = SKAction.moveToY(((frame.height * 0.05) + 60), duration: 0.1)
-            let reset = SKAction.moveToY(frame.height * 0.05, duration: 0.1)
+            let pullBack = SKAction.moveTo(y: ((frame.height * 0.05) - 70), duration: 0.1)
+            let springForward = SKAction.moveTo(y: ((frame.height * 0.05) + 60), duration: 0.1)
+            let reset = SKAction.moveTo(y: frame.height * 0.05, duration: 0.1)
             let swipeHit = SKAction.sequence([pullBack, springForward, reset])
             
-            player1.runAction(swipeHit)
+            player1.run(swipeHit)
             
             //time delay for ending drive speed
             let seconds = 0.2
             let delay = seconds * Double(NSEC_PER_SEC)  // nanoseconds per seconds
-            let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+            let dispatchTime = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
             
-            dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+            DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
                 
                 driveHit1 = false
                 
             })
             
-        }else if player2SwipeBox.containsPoint(tapLocation) {
+        }else if player2SwipeBox.contains(tapLocation) {
             print("WHACK")
             driveHit2 = true
-            let pullBack = SKAction.moveToY(((frame.height * 0.95) + 70), duration: 0.1)
-            let springForward = SKAction.moveToY(((frame.height * 0.95) - 60), duration: 0.1)
-            let reset = SKAction.moveToY(frame.height * 0.95, duration: 0.1)
+            let pullBack = SKAction.moveTo(y: ((frame.height * 0.95) + 70), duration: 0.1)
+            let springForward = SKAction.moveTo(y: ((frame.height * 0.95) - 60), duration: 0.1)
+            let reset = SKAction.moveTo(y: frame.height * 0.95, duration: 0.1)
             let swipeHit = SKAction.sequence([pullBack, springForward, reset])
            
-            player2.runAction(swipeHit)
+            player2.run(swipeHit)
             
             //time delay for ending drive speed
             let seconds = 0.2
             let delay = seconds * Double(NSEC_PER_SEC)  // nanoseconds per seconds
-            let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+            let dispatchTime = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
             
-            dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+            DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
                 driveHit2 = false
             })
         }
@@ -454,7 +451,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 
     
-    func didBeginContact(contact: SKPhysicsContact) {
+    func didBegin(_ contact: SKPhysicsContact) {
 
         //add velocity on drive hit
         if driveHit1 == true && (contact.bodyA.categoryBitMask == Paddle1Category) && (contact.bodyB.categoryBitMask == BallCategory) || driveHit1 == true &&
@@ -496,19 +493,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if player1score >= 3
         {
             print("Player 2 WINS!!!")
-            player1ScoreLabel.hidden = true
-            player2ScoreLabel.hidden = true
-            pauseButton.hidden = true
-            resetButton.hidden = false
-            player2WinsLabel.hidden = false
-            player2WinsLabel2.hidden = false
+            player1ScoreLabel.isHidden = true
+            player2ScoreLabel.isHidden = true
+            pauseButton.isHidden = true
+            resetButton.isHidden = false
+            player2WinsLabel.isHidden = false
+            player2WinsLabel2.isHidden = false
             
             
             let particles = SKEmitterNode(fileNamed: "ballExplosion")!
             
-            particles.position = convertPoint(CGPoint( x:0, y:0), fromNode: ball)
+            particles.position = convert(CGPoint( x:0, y:0), from: ball)
             particles.zPosition = 3
             particles.numParticlesToEmit = 15
+            //particles
             
             
             addChild(particles)
@@ -517,16 +515,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         else if player2score >= 3
         {
             print("Player 1 WINS!!!")
-            player1ScoreLabel.hidden = true
-            player2ScoreLabel.hidden = true
-            pauseButton.hidden = true
-            resetButton.hidden = false
-            player1WinsLabel.hidden = false
-            player1WinsLabel2.hidden = false
+            player1ScoreLabel.isHidden = true
+            player2ScoreLabel.isHidden = true
+            pauseButton.isHidden = true
+            resetButton.isHidden = false
+            player1WinsLabel.isHidden = false
+            player1WinsLabel2.isHidden = false
             
             let particles = SKEmitterNode(fileNamed: "ballExplosion")!
             
-            particles.position = convertPoint(CGPoint( x:0, y:0), fromNode: ball)
+            particles.position = convert(CGPoint( x:0, y:0), from: ball)
             particles.zPosition = 3
 
             particles.numParticlesToEmit = 15
@@ -535,8 +533,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addChild(particles)
             ball.removeFromParent()
         }
+        
     }
     
-    
-}
+//    override func update(currentTime: CFTimeInterval){
+//        
+//        ball.position.x.clamp(0, 320)
+//        ball.position.y.clamp(0, 568)
+//    }
+//    
+} 
 
